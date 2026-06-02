@@ -1,1 +1,111 @@
-ReadMe
+# MambaDDI: A Hybrid State Space Framework for Multiclass Drug–Drug Interaction Prediction
+
+## Overview
+
+MambaDDI is a deep learning framework for multiclass Drug–Drug Interaction (DDI) prediction under severe class imbalance. The framework combines molecular graph representations, biomedical knowledge graph embeddings, dual Mamba State Space Model (SSM) experts, and a confidence-aware gated fusion mechanism to improve prediction of both common and rare DDI events.
+
+The model integrates:
+- Graph Attention Networks (GAT) for molecular structure learning
+- Drug Repurposing Knowledge Graph (DRKG) embeddings for semantic biomedical information
+- Dual Mamba experts for learning dominant and minority interaction patterns
+- Confidence-aware adaptive expert fusion
+
+---
+
+## Framework Architecture
+
+The proposed framework consists of three stages:
+
+### 1. Feature Extraction
+- Molecular graphs are constructed from SMILES strings using RDKit and PyTorch Geometric
+- A Graph Attention Network (GAT) extracts structural drug representations
+- DRKG embeddings provide biomedical semantic information
+- Structural and semantic features are fused into unified drug embeddings
+
+### 2. Expert Modeling
+Two specialized Mamba experts are employed:
+
+- **Standard Expert (E1)**  
+  Learns dominant and frequently occurring interaction patterns
+
+- **Class-Reweighted Expert (E2)**  
+  Focuses on minority and difficult interaction classes
+
+### 3. Confidence-Aware Gating
+A lightweight gating network dynamically combines outputs from both experts using:
+- expert confidence
+- latent representations
+- predicted class probabilities
+
+---
+
+## Key Features
+
+- Multiclass DDI event prediction
+- Robust handling of class imbalance
+- Hybrid graph + knowledge graph representation learning
+- Efficient linear-complexity Mamba sequence modeling
+- Adaptive confidence-aware expert fusion
+- Strong macro-F1 and macro-recall performance
+
+---
+
+## Datasets
+
+Experiments were conducted on:
+- DrugBank dataset
+- DDIMDL dataset
+
+Negative sampling was applied to generate non-interacting drug pairs.
+
+---
+
+## Requirements
+
+Main libraries used:
+- Python 3.10+
+- PyTorch
+- PyTorch Geometric
+- RDKit
+- NumPy
+- pandas
+- scikit-learn
+- mamba-ssm
+
+---
+
+Evaluation metrics:
+- Macro F1
+- Macro Precision
+- Macro Recall
+
+---
+
+## Experimental Results
+
+| Dataset | Macro F1 | Macro Precision | Macro Recall |
+|----------|-----------|------------------|---------------|
+| DrugBank | 0.9068 | 0.8974 | 0.9294 |
+| DDIMDL | 0.8399 | 0.8223 | 0.8855 |
+
+MambaDDI achieves strong multiclass DDI prediction performance while maintaining significantly lower parameter complexity compared to large transformer-based architectures.
+
+---
+
+## Acknowledgements
+
+This work utilizes:
+- DrugBank
+- DRKG
+- PyTorch Geometric
+- RDKit
+- Mamba State Space Models
+
+---
+
+## License
+
+This repository is released under the MIT License.
+
+---
+
